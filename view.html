@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PopcornBox Share</title>
+    <link rel="icon" type="image/webp" href="img/popcorn.webp" />
+  </head>
+
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden !important;
+        overflow-y: hidden;
+      }
+      li {
+        list-style-type: none !important;
+      }
+      body {
+        background-color: black;
+      }
+      #background {
+        filter: blur(128px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        min-width: calc(100vw + 20px);
+        max-width: 200vw;
+        height: 100vh;
+        min-height: calc(100vh + 20px);
+        max-height: 200vh;
+        transform: translate(-10px, 10px);
+        z-index: 1;
+      }
+      #overlay {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        background-color: transparent;
+      }
+      #card {
+        width: min(450px, calc(100vw - 16px));
+        margin: 25vh auto 8px auto;
+        background-color: rgb(36, 36, 36);
+        color: white;
+        font-family: sans-serif;
+        border-radius: 16px;
+        text-align: center;
+        padding: 0 8px;
+      }
+      #card #cover {
+        margin: 8px auto;
+        height: 40vh;
+      }
+      #card #title {
+        display: block;
+        color: white;
+        font-size: 20px;
+      }
+      #card #buy {
+        color: white !important;
+        text-decoration: none;
+        background-color: black;
+        border-radius: 8px;
+        padding: 8px 16px;
+      }
+      #card #genres,
+      #card #actorList {
+        margin: 32px 0 8px 0;
+      }
+    </style>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const obj = urlParams.get("obj");
+      // https://popcornbox.web.app/share.html?k=k_S38lvSJ7&id=tt1528071
+      const id = urlParams.get("id");
+      const k = urlParams.get("k");
+
+      if (id && k) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = () => {
+          if (xmlHttp.readyState == 4) {
+            if (xmlHttp.status == 200) {
+              writeData(JSON.parse(xmlHttp.responseText));
+            } else {
+              window.location.replace("/");
+            }
+          }
+        };
+        xmlHttp.open(
+          "GET",
+          `https://imdb-api.com/de/API/Title/${k}/${id}`,
+          true
+        );
+        xmlHttp.send(null);
+      } else if (obj) {
+        writeData(JSON.parse(decodeURIComponent(atob(obj))));
+      }
+
+      async function writeData(data) {
+        try {
+          if (!data) window.location.replace("/");
+          if (data.errorMessage && data.errorMessage.length > 0) {
+            console.error(data.errorMessage);
+            alert(data.errorMessage);
+            return;
+          }
+          // console.log(
+          //   btoa(
+          //     encodeURIComponent(
+          //       JSON.stringify({
+          //         title: data.title,
+          //         image: data.image,
+          //         actorList: data.actorList,
+          //         genres: data.genres,
+          //         plotLocal: data.plotLocal,
+          //       })
+          //     )
+          //   )
+          // );
+
+          let title = document.createElement("b");
+          title.innerText = data.title;
+          title.id = "title";
+
+          let plot = document.createElement("p");
+          plot.innerText = data.plotLocal;
+          plot.id = "plot";
+
+          let actorList = document.createElement("ul");
+          for (const actor of data.actorList) {
+            let li = document.createElement("li");
+            let img = document.createElement("img");
+            img.src = actor.image;
+            img.height = 32;
+            li.appendChild(img);
+            li.innerHTML += `<span>${actor.name} - ${actor.asCharacter}</span>`;
+            actorList.appendChild(li);
+          }
+          actorList.id = "actorList";
+
+          let genres = document.createElement("p");
+          genres.innerText = `Genres: ${data.genres}`;
+          genres.id = "genres";
+
+          let cover = document.createElement("img");
+          cover.src = data.image;
+          cover.id = "cover";
+
+          let background = document.createElement("img");
+          background.src = data.image;
+          background.id = "background";
+          document.body.appendChild(background);
+
+          let buy = document.createElement("a");
+          buy.id = "buy";
+          buy.innerText = "Kaufen";
+          buy.rel = "nofollow noreferrer noopener external search";
+          buy.href = `https://www.amazon.de/s?k=${data.title}&i=dvd`;
+
+          let card = document.createElement("div");
+          card.appendChild(cover);
+          card.appendChild(title);
+          card.appendChild(plot);
+          card.appendChild(document.createElement("br"));
+          card.appendChild(buy);
+          card.appendChild(actorList);
+          card.appendChild(genres);
+          card.id = "card";
+          let overlay = document.createElement("div");
+          overlay.appendChild(card);
+          overlay.id = "overlay";
+          document.body.appendChild(overlay);
+        } catch (e) {
+          console.error(e);
+          alert(e);
+          window.location.replace("/");
+        }
+      }
+    </script>
+  </body>
+</html>
