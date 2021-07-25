@@ -1,0 +1,7 @@
+.parcel-cache
+.vscode/
+.vs/
+dist/
+node_modules/
+*.wasm
+*.js
