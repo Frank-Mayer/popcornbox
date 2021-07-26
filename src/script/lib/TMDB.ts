@@ -1,3 +1,5 @@
+import backdrop from "url:../../img/backdrop.webp";
+
 export interface IPerson {
   adult: boolean;
   cast_id: number;
@@ -63,7 +65,5 @@ export interface IMovieData {
 }
 
 export function imageResolver(fileName: string | null) {
-  return fileName
-    ? `https://image.tmdb.org/t/p/w500/${fileName}`
-    : "/backdrop.webp";
+  return fileName ? `https://image.tmdb.org/t/p/w500/${fileName}` : backdrop;
 }

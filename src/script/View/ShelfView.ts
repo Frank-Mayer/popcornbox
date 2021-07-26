@@ -21,8 +21,8 @@ export default class ShelfView implements IView {
         return html`<li
           style="background-image: url('${imageResolver(mov.backdrop_path)}')"
         >
-          <img src="${mov.cover}" />
-          ${mov.title}
+          <img src="${mov.cover}" loading="lazy" />
+          <span>${mov.title}</span>
         </li>`[0];
       })
       .map((el) => (el ? el.outerHTML : ""))

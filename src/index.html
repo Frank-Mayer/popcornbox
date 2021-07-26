@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="./img/fav.webp" type="image/webp" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="modulepreload" href="./script/index.ts" />
+    <link rel="preload" href="./style/style.scss" as="style" />
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,9 +14,25 @@
   </head>
   <body>
     <div id="recommendation"></div>
-    <div id="shelf"></div>
-    <div id="toolbar"></div>
+    <ul id="shelf"></ul>
+    <nav>
+      <img src="./img/wishlist.svg" alt="wishlist" />
+      <img src="./img/add.svg" alt="add" />
+      <img src="./img/search.svg" alt="search" />
+      <img src="./img/statistics.svg" alt="statistics" />
+    </nav>
 
     <script defer type="module" src="./script/index.ts"></script>
+    <link rel="stylesheet" href="./style/style.scss" />
+    <link
+      rel="stylesheet"
+      media="all and (orientation: landscape)"
+      href="./style/style-desktop.scss"
+    />
+    <link
+      rel="stylesheet"
+      media="all and (orientation: portrait)"
+      href="./style/style-mobile.scss"
+    />
   </body>
 </html>

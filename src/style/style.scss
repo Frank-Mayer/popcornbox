@@ -1,0 +1,19 @@
+@import "globals";
+@import "normalize";
+
+:root {
+  background-color: $back;
+}
+
+nav {
+  background-color: $back2;
+}
+
+* {
+  color: $fore;
+  font-family: "Segoe UI", Roboto, Ubuntu, sans-serif;
+}
+
+body * {
+  overflow: hidden;
+}

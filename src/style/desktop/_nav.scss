@@ -1,0 +1,24 @@
+@import "../globals";
+
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  > img {
+    width: 42px;
+    padding: 32px 8px;
+    cursor: pointer;
+
+    transition: filter ease-in-out $timing;
+
+    &:hover {
+      filter: drop-shadow(0 0 8px $fore) drop-shadow(0 0 16px $fore);
+    }
+  }
+}

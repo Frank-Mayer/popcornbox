@@ -1,0 +1,51 @@
+@import "../globals";
+
+ul#shelf {
+  $pad: min(25vw, max(64px, calc(50vw - 500px)));
+  min-height: 100vh;
+  padding: 32px $pad 64px $pad;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  > li {
+    cursor: pointer;
+    width: 100%;
+    height: 128px;
+    border-radius: 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    &:not(:hover) {
+      background-image: linear-gradient(
+        75deg,
+        $back2 0%,
+        $accent 100%
+      ) !important;
+    }
+
+    > * {
+      display: inline-block;
+    }
+
+    > img {
+      height: 100%;
+    }
+
+    > span {
+      background-image: linear-gradient(
+        90deg,
+        rgba(black, 1) 0%,
+        rgba(black, 0.5) 25%,
+        rgba(black, 0.45) 50%
+      );
+      padding: 8px 16px;
+      width: 100%;
+      font-size: 42px;
+    }
+  }
+}
