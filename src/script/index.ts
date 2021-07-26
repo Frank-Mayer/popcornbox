@@ -6,6 +6,21 @@ import { ShelfModel } from "./Model/ShelfModel";
 import ShelfView from "./View/ShelfView";
 import ShelfViewModel from "./ViewModel/ShelfViewModel";
 
+const oldBrowser = () => {
+  const msg =
+    "Falls Du hinter'm Mond lebst: Dein Browser ist veraltet!\nBitte update auf den neuesten Stand der Technik, wir sind nicht mehr in der Steinzeit.";
+  alert(msg);
+  throw msg;
+};
+
+try {
+  if (!("BigInt" in globalThis)) {
+    oldBrowser();
+  }
+} catch {
+  oldBrowser();
+}
+
 const broadcast = new BroadcastChannel("sw-channel");
 
 broadcast.onmessage = (event) => {
