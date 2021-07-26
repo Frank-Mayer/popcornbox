@@ -3,5 +3,6 @@
 .vs/
 dist/
 node_modules/
+package-lock.json
 *.wasm
 *.js
