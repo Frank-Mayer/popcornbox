@@ -1,18 +1,13 @@
 /// <reference path="../ViewModel/IViewModel.d.ts" />
 
-interface IView<ViewModel extends IViewModel<any>> {
+interface IView {
   /**
-   * Render target
-   */
-  readonly target: HTMLElement;
-
-  /**
-   * Data grab reference
-   */
-  readonly data: ViewModel;
-
-  /**
-   * Render to the target
+   * Render html to the target
    */
   render(): void;
+
+  /**
+   * Data in Model hash changed
+   */
+  notifyPropertyChanged(): void;
 }

@@ -61,3 +61,9 @@ export interface IMovieData {
   typ: number;
   watchcount: number;
 }
+
+export function imageResolver(fileName: string | null) {
+  return fileName
+    ? `https://image.tmdb.org/t/p/w500/${fileName}`
+    : "/backdrop.webp";
+}

@@ -1,21 +1,37 @@
 /// <reference path="./IView.ts" />
 
-import { html } from "@frank-mayer/magic";
-import ShelfData from "../ViewModel/ShelfViewModel";
+import { html, retriggerableDelay } from "@frank-mayer/magic";
+import { imageResolver } from "../lib/TMDB";
+import ShelfViewModel from "../ViewModel/ShelfViewModel";
 
-export default class ShelfView implements IView<ShelfData> {
-  target: HTMLElement;
-  data: ShelfData;
+export default class ShelfView implements IView {
+  private readonly target: HTMLElement;
+  private readonly vm: ShelfViewModel;
+  private static readonly updateDelay = 500;
 
-  constructor(target: HTMLElement, data: ShelfData) {
+  constructor(target: HTMLElement, vm: ShelfViewModel) {
     this.target = target;
-    this.data = data;
+    this.vm = vm;
   }
 
   render(): void {
-    this.target.innerHTML = this.data
-      .map((mov) => html`<li>${mov.title}</li>`[0])
-      .map((el) => el.outerHTML)
+    console.count("render");
+    this.target.innerHTML = this.vm
+      .map((mov) => {
+        return html`<li
+          style="background-image: url('${imageResolver(mov.backdrop_path)}')"
+        >
+          <img src="${mov.cover}" />
+          ${mov.title}
+        </li>`[0];
+      })
+      .map((el) => (el ? el.outerHTML : ""))
       .join("");
+  }
+
+  notifyPropertyChanged(): void {
+    retriggerableDelay(() => {
+      this.render();
+    }, ShelfView.updateDelay);
   }
 }
