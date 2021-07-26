@@ -58,7 +58,7 @@ auth.onAuthStateChanged(async (ev) => {
   const shelfModel = new ShelfModel();
   const shelfViewModel = new ShelfViewModel(shelfModel);
   const shelfView = new ShelfView(
-    document.getElementById("recommendation")!,
+    document.getElementById("shelf")!,
     shelfViewModel
   );
 
