@@ -1,2 +1,12 @@
 @import "./desktop/nav";
 @import "./desktop/shelf";
+@import "./desktop/modal";
+
+img {
+  image-rendering: optimizeQuality;
+}
+
+* {
+  text-rendering: optimizeLegibility;
+  shape-rendering: geometricPrecision;
+}

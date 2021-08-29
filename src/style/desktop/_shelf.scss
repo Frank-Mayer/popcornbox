@@ -9,43 +9,175 @@ ul#shelf {
   gap: 16px;
 
   > li {
-    cursor: pointer;
-    width: 100%;
-    height: 128px;
-    border-radius: 16px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
 
-    &:not(:hover) {
-      background-image: linear-gradient(
-        75deg,
-        $back2 0%,
-        $accent 100%
-      ) !important;
+    transition: all ease-in-out $timing;
+
+    &.fav {
+      box-shadow: inset 0 0 32px gold;
     }
 
-    > * {
-      display: inline-block;
+    &.open {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 16px 80px 128px 80px;
+      overflow-y: scroll;
+      pointer-events: all;
+      z-index: 100;
+
+      > img.cover {
+        user-select: none;
+        display: block;
+        width: 250px;
+        margin: 16px auto 128px auto;
+        filter: drop-shadow(0 0 16px black);
+      }
+
+      > .title {
+        display: none;
+      }
+
+      > .details {
+        > .back {
+          user-select: none;
+          cursor: pointer;
+          position: fixed;
+          top: 16px;
+          left: 16px;
+          width: 32px;
+        }
+
+        > .fav,
+        > .countButton,
+        > .watchcount {
+          height: 24px;
+          display: inline-block;
+          font-size: 20px;
+          user-select: none;
+        }
+
+        > .fav {
+          cursor: pointer;
+        }
+
+        > .countButton,
+        > .watchcount {
+          font-family: monospace !important;
+          height: 24px;
+          background-color: $fore;
+          color: $back;
+        }
+
+        > .countButton {
+          cursor: pointer;
+          padding: 2px 0;
+          width: 24px;
+          text-align: center;
+        }
+
+        > .watchcount {
+          min-width: 5em;
+          text-align: center;
+        }
+
+        > .info,
+        > .genres {
+          filter: drop-shadow(0 0 4px black) drop-shadow(0 0 2px black);
+          overflow: visible !important;
+          padding: 8px;
+        }
+
+        > .info {
+          font-size: 18px;
+          max-width: 1024px;
+          margin: auto;
+          line-height: 1.5em;
+        }
+
+        > .cast {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 16px;
+          max-width: 100%;
+          height: auto;
+
+          > li {
+            display: flex;
+            flex-direction: column;
+            width: 125px;
+
+            > img {
+              user-select: none;
+              width: 125px;
+              height: #{125px * 1.5};
+              border-radius: 8px;
+            }
+
+            > p {
+              width: 125px;
+              word-wrap: normal;
+
+              &.character {
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+      }
     }
 
-    > img {
-      height: 100%;
-    }
-
-    > span {
-      background-image: linear-gradient(
-        90deg,
-        rgba(black, 1) 0%,
-        rgba(black, 0.5) 25%,
-        rgba(black, 0.45) 50%
-      );
-      padding: 8px 16px;
+    &:not(.open) {
+      cursor: pointer;
       width: 100%;
-      font-size: 42px;
+      height: 128px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      border-radius: 16px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      > .details {
+        display: none;
+      }
+
+      > &:not(:hover) {
+        background-image: linear-gradient(
+          75deg,
+          $back2 0%,
+          $accent 100%
+        ) !important;
+      }
+
+      > * {
+        display: inline-block;
+      }
+
+      > img {
+        height: 100%;
+      }
+
+      > span {
+        background-image: linear-gradient(
+          90deg,
+          rgba(black, 1) 0%,
+          rgba(black, 0.5) 25%,
+          rgba(black, 0.45) 50%
+        );
+        padding: 8px 16px;
+        width: 100%;
+        font-size: 42px;
+      }
     }
   }
 }

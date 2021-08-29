@@ -1,1 +1,10 @@
 @import "./mobile/nav";
+
+img {
+  image-rendering: optimizeSpeed;
+}
+
+* {
+  text-rendering: optimizeLegibility;
+  shape-rendering: optimizeSpeed;
+}

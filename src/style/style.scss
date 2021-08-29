@@ -1,5 +1,6 @@
 @import "globals";
 @import "normalize";
+@import "login";
 
 :root {
   background-color: $back;
@@ -16,4 +17,8 @@ nav {
 
 body * {
   overflow: hidden;
+}
+
+::selection {
+  background-color: $accent;
 }

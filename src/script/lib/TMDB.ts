@@ -64,6 +64,9 @@ export interface IMovieData {
   watchcount: number;
 }
 
-export function imageResolver(fileName: string | null) {
-  return fileName ? `https://image.tmdb.org/t/p/w500/${fileName}` : backdrop;
+export function imageResolver(
+  fileName: string | null,
+  size: "original" | "w500" = "original"
+) {
+  return fileName ? `https://image.tmdb.org/t/p/${size}/${fileName}` : backdrop;
 }

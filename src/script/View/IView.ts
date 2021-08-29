@@ -1,6 +1,4 @@
-/// <reference path="../ViewModel/IViewModel.d.ts" />
-
-interface IView {
+export default interface IView {
   /**
    * Render html to the target
    */
